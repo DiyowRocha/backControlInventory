@@ -2,14 +2,15 @@ namespace backControlInventory.Domain.Enum;
 
 public enum DeviceType
 {
-    Notebook,
+    AccessPoint,
     Desktop,
-    Monitor,
-    Smartphone,
-    Chip,
-    Printer,
-    Switch,
     Firewall,
+    Monitor,
+    Notebook,
+    Printer,
     Server,
-    AccessPoint
+    Smartphone,
+    Switch,
+    MobileChip
 }
+
