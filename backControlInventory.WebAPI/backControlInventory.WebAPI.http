@@ -1,0 +1,6 @@
+@backControlInventory.WebAPI_HostAddress = http://localhost:5261
+
+GET {{backControlInventory.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
