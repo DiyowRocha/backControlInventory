@@ -1,4 +1,6 @@
 using backControlInventory.Infrastructure.Context;
+using backControlInventory.Infrastructure.Repository.BaseRepository;
+using backControlInventory.Infrastructure.Repository.Units;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +15,7 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationContext>(options
         => options.UseNpgsql(connectionString));
 
-        //services.AddScoped<>();
+        services.AddScoped<IUnitRepository, UnitRepository>();
 
         return services;
     }
