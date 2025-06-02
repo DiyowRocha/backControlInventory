@@ -92,12 +92,12 @@ public class UnitService : IUnitService
 
     public async Task<bool> DeleteUnitAsync(int id)
     {
-        var unit = await _unitRepository.GetById(id);
+        var deletedUnit = await _unitRepository.GetById(id);
 
-        if (unit == null)
+        if (deletedUnit == null)
             return false;
 
-        _unitRepository.Delete(unit);
+        _unitRepository.Delete(deletedUnit);
 
         return true;
     }

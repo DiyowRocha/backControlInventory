@@ -1,4 +1,5 @@
 using backControlInventory.Application.External.ViaCep;
+using backControlInventory.Application.Service.Manufacturers;
 using backControlInventory.Application.Service.Units;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,7 @@ public static class DependencyInjection {
         services.AddHttpClient();
         services.AddScoped<IViaCepService, ViaCepService>();
         services.AddScoped<IUnitService, UnitService>();
+        services.AddScoped<IManufacturerService, ManufacturerService>();
 
         return services;
     }
