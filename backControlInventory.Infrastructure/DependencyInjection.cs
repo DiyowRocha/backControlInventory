@@ -1,4 +1,5 @@
 using backControlInventory.Infrastructure.Context;
+using backControlInventory.Infrastructure.Models;
 using backControlInventory.Infrastructure.Repository.BaseRepository;
 using backControlInventory.Infrastructure.Repository.Manufacturers;
 using backControlInventory.Infrastructure.Repository.Units;
@@ -18,6 +19,7 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitRepository, UnitRepository>();
         services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
+        services.AddScoped<IModelRepository, ModelRepository>();
 
         return services;
     }

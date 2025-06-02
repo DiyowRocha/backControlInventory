@@ -27,7 +27,7 @@ public class ManufacturerController : ControllerBase
     {
         var manufacturers = await _manufacturerService.GetAllManufacturersAsync();
 
-        if (manufacturers == null)
+        if (!manufacturers.Any())
             return NotFound("Manufacturers not found.");
 
         return Ok(manufacturers);

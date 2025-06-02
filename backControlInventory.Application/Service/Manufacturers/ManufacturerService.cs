@@ -43,13 +43,13 @@ public class ManufacturerService : IManufacturerService
     {
         var updatedManufacturer = await _manufacturerRepository.GetById(id);
 
-        if (id != updatedManufacturer.Id)
-            throw new Exception("Route Id and body Id do not match.");
-
         if (updatedManufacturer == null)
             return null;
 
-        updatedManufacturer.Name = dto.Name;
+        if (id != updatedManufacturer.Id)
+            throw new Exception("Route Id and body Id do not match.");
+
+        _mapper.Map(dto, updatedManufacturer);
 
         _manufacturerRepository.Update(updatedManufacturer);
 

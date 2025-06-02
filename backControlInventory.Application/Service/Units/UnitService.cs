@@ -1,6 +1,7 @@
 
 using AutoMapper;
 using backControlInventory.Application.External.ViaCep;
+using backControlInventory.Application.Service.Addresses;
 using backControlInventory.Domain.Model;
 using backControlInventory.Infrastructure.Repository.Units;
 
@@ -22,20 +23,14 @@ public class UnitService : IUnitService
 
     public async Task<UnitViewModel> CreateUnitAsync(UnitDto dto)
     {
-        var viaCep = await _viaCepService.GetAddressByZipCodeAsync(dto.Address.ZipCode);
-
-        dto.Address.Street = viaCep.Logradouro;
-        dto.Address.Neighborhood = viaCep.Bairro;
-        dto.Address.City = viaCep.Localidade;
-        dto.Address.State = viaCep.Uf;
-        dto.Address.Country = "Brazil";
-        dto.Address.ZipCode = viaCep.Cep;
+        if (dto.Address != null && !string.IsNullOrWhiteSpace(dto.Address.ZipCode))
+            await FillAddressFromZipCode(dto.Address);
 
         var createdUnit = _mapper.Map<Unit>(dto);
 
         await _unitRepository.Add(createdUnit);
 
-        return _mapper.Map<Unit, UnitViewModel>(createdUnit);
+        return _mapper.Map<UnitViewModel>(createdUnit);
     }
 
     public async Task<IEnumerable<UnitViewModel>> GetAllUnitsAsync()
@@ -63,22 +58,22 @@ public class UnitService : IUnitService
     {
         var existingUnit = await _unitRepository.GetById(id);
 
-        if (id != existingUnit.Id)
-            throw new Exception("Route Id and body Id do not match.");
-
         if (existingUnit == null)
             return null;
 
+        if (id != existingUnit.Id)
+            throw new Exception("Route Id and body Id do not match.");
+
         if (dto.Address != null && !string.IsNullOrWhiteSpace(dto.Address.ZipCode))
         {
-            var viaCep = await _viaCepService.GetAddressByZipCodeAsync(dto.Address.ZipCode);
+            await FillAddressFromZipCode(dto.Address);
 
-            existingUnit.Address.Street = viaCep.Logradouro;
-            existingUnit.Address.Neighborhood = viaCep.Bairro;
-            existingUnit.Address.City = viaCep.Localidade;
-            existingUnit.Address.State = viaCep.Uf;
-            existingUnit.Address.Country = "Brazil";
-            existingUnit.Address.ZipCode = viaCep.Cep;
+            existingUnit.Address.Street = dto.Address.Street;
+            existingUnit.Address.Neighborhood = dto.Address.Neighborhood;
+            existingUnit.Address.City = dto.Address.City;
+            existingUnit.Address.State = dto.Address.State;
+            existingUnit.Address.Country = dto.Address.Country;
+            existingUnit.Address.ZipCode = dto.Address.ZipCode;
         }
 
         existingUnit.Name = dto.Name;
@@ -100,5 +95,17 @@ public class UnitService : IUnitService
         _unitRepository.Delete(deletedUnit);
 
         return true;
+    }
+
+    private async Task FillAddressFromZipCode(AddressDto address)
+    {
+        var viaCep = await _viaCepService.GetAddressByZipCodeAsync(address.ZipCode);
+
+        address.Street = viaCep.Logradouro;
+        address.Neighborhood = viaCep.Bairro;
+        address.City = viaCep.Localidade;
+        address.State = viaCep.Uf;
+        address.Country = "Brazil";
+        address.ZipCode = viaCep.Cep;
     }
 }
