@@ -1,5 +1,6 @@
 using AutoMapper;
 using backControlInventory.Application.Service.Addresses;
+using backControlInventory.Application.Service.Buildings;
 using backControlInventory.Domain.Model;
 
 namespace backControlInventory.Application.Service.Units;
@@ -22,5 +23,9 @@ public class UnitMappingProfile : Profile
             .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.Address.State))
             .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Address.Country))
             .ForMember(dest => dest.ZipCode, opt => opt.MapFrom(src => src.Address.ZipCode));
+
+        CreateMap<Unit, UnitWithBuildingsViewModel>();
+
+        CreateMap<Building, BuildingSimpleViewModel>();
     }
 }

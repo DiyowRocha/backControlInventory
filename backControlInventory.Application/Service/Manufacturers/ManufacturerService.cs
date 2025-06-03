@@ -51,7 +51,7 @@ public class ManufacturerService : IManufacturerService
 
         _mapper.Map(dto, updatedManufacturer);
 
-        _manufacturerRepository.Update(updatedManufacturer);
+        await _manufacturerRepository.Update(updatedManufacturer);
 
         return _mapper.Map<ManufacturerViewModel>(updatedManufacturer);
     }
@@ -63,7 +63,7 @@ public class ManufacturerService : IManufacturerService
         if (deletedManufacturer == null)
             return false;
 
-        _manufacturerRepository.Delete(deletedManufacturer);
+        await _manufacturerRepository.Delete(deletedManufacturer);
 
         return true;
     }

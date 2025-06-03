@@ -44,6 +44,17 @@ public class UnitController : ControllerBase
         return Ok(unit);
     }
 
+    [HttpGet("buildings/{id}")]
+    public async Task<ActionResult> GetUnitWithBuildingsByIdAsync([FromRoute] int id)
+    {
+        var unit = await _unitService.GetUnitWithBuildingsByIdAsync(id);
+
+        if (unit == null)
+            return NotFound("Unit not found.");
+
+        return Ok(unit);
+    }
+
     [HttpGet("zipcode/{zipcode}")]
     public async Task<ActionResult> GetUnitByZipCodeAsync([FromRoute] string zipcode)
     {

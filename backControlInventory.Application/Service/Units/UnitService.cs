@@ -47,6 +47,13 @@ public class UnitService : IUnitService
         return _mapper.Map<UnitViewModel>(unit);
     }
 
+    public async Task<UnitWithBuildingsViewModel> GetUnitWithBuildingsByIdAsync(int id)
+    {
+        var unit = await _unitRepository.GetById(id);
+
+        return _mapper.Map<UnitWithBuildingsViewModel>(unit);
+    }
+
     public async Task<UnitViewModel> GetUnitByZipCodeAsync(string zipCode)
     {
         var unit = await _unitRepository.GetUnitByZipCode(zipCode);
@@ -80,7 +87,7 @@ public class UnitService : IUnitService
         existingUnit.Address.Number = dto.Address.Number;
         existingUnit.Address.Complement = dto.Address.Complement;
 
-        _unitRepository.Update(existingUnit);
+        await _unitRepository.Update(existingUnit);
 
         return _mapper.Map<UnitViewModel>(existingUnit);
     }
@@ -92,7 +99,7 @@ public class UnitService : IUnitService
         if (deletedUnit == null)
             return false;
 
-        _unitRepository.Delete(deletedUnit);
+        await _unitRepository.Delete(deletedUnit);
 
         return true;
     }

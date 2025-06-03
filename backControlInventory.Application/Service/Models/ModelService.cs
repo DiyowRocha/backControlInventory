@@ -63,7 +63,7 @@ public class ModelService : IModelService
 
         _mapper.Map(dto, updatedModel);
 
-        _modelRepository.Update(updatedModel);
+        await _modelRepository.Update(updatedModel);
 
         return _mapper.Map<ModelViewModel>(updatedModel);
     }
@@ -75,7 +75,7 @@ public class ModelService : IModelService
         if (deletedModel == null)
             return false;
 
-        _modelRepository.Delete(deletedModel);
+        await _modelRepository.Delete(deletedModel);
 
         return true;
     }

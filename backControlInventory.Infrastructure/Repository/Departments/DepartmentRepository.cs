@@ -14,6 +14,13 @@ public class DepartmentRepository : BaseRepository<Department>, IDepartmentRepos
         _context = context;
     }
 
+    public override async Task<IEnumerable<Department>> GetAll()
+    {
+        return await _context.Departments
+            .Include(d => d.Building)
+            .ToListAsync();
+    }
+
     public override async Task<Department?> GetById(int id)
     {
         return await _context.Departments

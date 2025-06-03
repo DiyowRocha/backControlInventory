@@ -19,7 +19,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<T>> GetAll()
+    public virtual async Task<IEnumerable<T>> GetAll()
     {
         return await _context.Set<T>().ToListAsync();
     }
@@ -29,13 +29,13 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         return await _context.Set<T>().FindAsync(id);
     }
 
-    public void Update(T entity)
+    public async Task Update(T entity)
     {
         _context.Set<T>().Update(entity);
         _context.SaveChanges();
     }
 
-    public void Delete(T entity)
+    public async Task Delete(T entity)
     {
         _context.Set<T>().Remove(entity);
         _context.SaveChanges();

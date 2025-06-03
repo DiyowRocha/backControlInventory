@@ -21,7 +21,7 @@ public class DepartmentService : IDepartmentService
 
     public async Task<DepartmentViewModel> CreateDepartmentAsync(DepartmentDto dto)
     {
-        var building = await _departmentRepository.GetById(dto.BuildingId);
+        var building = await _buildingRepository.GetById(dto.BuildingId);
 
         if (building == null)
             throw new Exception("Building not found.");
@@ -64,7 +64,7 @@ public class DepartmentService : IDepartmentService
 
         _mapper.Map(dto, updatedDepartment);
 
-        _departmentRepository.Update(updatedDepartment);
+        await _departmentRepository.Update(updatedDepartment);
 
         return _mapper.Map<DepartmentViewModel>(updatedDepartment);
     }
@@ -76,7 +76,7 @@ public class DepartmentService : IDepartmentService
         if (deletedDepartment == null)
             return false;
 
-        _departmentRepository.Delete(deletedDepartment);
+        await _departmentRepository.Delete(deletedDepartment);
 
         return true;
     }

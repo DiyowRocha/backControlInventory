@@ -24,4 +24,11 @@ public class UnitRepository : BaseRepository<Unit>, IUnitRepository
 
         return unit;
     }
+
+    public override async Task<Unit?> GetById(int id)
+    {
+        return await _context.Units
+            .Include(u => u.Buildings)
+            .FirstOrDefaultAsync(u => u.Id == id);
+    }
 }
