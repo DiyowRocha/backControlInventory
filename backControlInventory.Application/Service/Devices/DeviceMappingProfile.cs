@@ -12,6 +12,7 @@ public class DeviceMappingProfile : Profile
     {
         CreateMap<Device, DeviceViewModel>()
             .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.ToString()))
+            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()))
             .ForMember(dest => dest.ManufacturerName, opt => opt.MapFrom(src => src.Manufacturer.Name))
             .ForMember(dest => dest.ModelName, opt => opt.MapFrom(src => src.Model.Name))
             .ForMember(dest => dest.NetworkInfo, opt => opt.MapFrom(src => src.NetworkInfo))

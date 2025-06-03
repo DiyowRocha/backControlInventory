@@ -10,6 +10,7 @@ public class DeviceViewModel
     public int Id { get; set; }
     public string Type { get; set; }
     public string SerialNumber { get; set; }
+    public string Status { get; set; }
 
     public int ManufacturerId { get; set; }
     public string ManufacturerName { get; set; }
