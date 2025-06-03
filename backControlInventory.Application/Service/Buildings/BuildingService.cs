@@ -58,8 +58,6 @@ public class BuildingService : IBuildingService
         if (updatedBuilding == null)
             return null;
 
-        if (id != updatedBuilding.Id)
-            throw new Exception("Route Id and body Id do not match.");
 
         _mapper.Map(dto, updatedBuilding);
 

@@ -68,9 +68,6 @@ public class UnitService : IUnitService
         if (existingUnit == null)
             return null;
 
-        if (id != existingUnit.Id)
-            throw new Exception("Route Id and body Id do not match.");
-
         if (dto.Address != null && !string.IsNullOrWhiteSpace(dto.Address.ZipCode))
         {
             await FillAddressFromZipCode(dto.Address);

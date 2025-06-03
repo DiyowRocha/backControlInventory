@@ -59,9 +59,6 @@ public class DepartmentService : IDepartmentService
         if (updatedDepartment == null)
             return null;
 
-        if (id != updatedDepartment.Id)
-            throw new Exception("Route Id and body Id do not match.");
-
         _mapper.Map(dto, updatedDepartment);
 
         await _departmentRepository.Update(updatedDepartment);

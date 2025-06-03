@@ -58,9 +58,6 @@ public class ModelService : IModelService
         if (updatedModel == null)
             return null;
 
-        if (id != updatedModel.Id)
-            throw new Exception("Route Id and body Id do not match.");
-
         _mapper.Map(dto, updatedModel);
 
         await _modelRepository.Update(updatedModel);
