@@ -1,6 +1,7 @@
 using backControlInventory.Application.External.ViaCep;
 using backControlInventory.Application.Service.Buildings;
 using backControlInventory.Application.Service.Departments;
+using backControlInventory.Application.Service.Devices;
 using backControlInventory.Application.Service.Manufacturers;
 using backControlInventory.Application.Service.Models;
 using backControlInventory.Application.Service.Units;
@@ -18,6 +19,7 @@ public static class DependencyInjection {
         services.AddScoped<IModelService, ModelService>();
         services.AddScoped<IDepartmentService, DepartmentService>();
         services.AddScoped<IBuildingService, BuildingService>();
+        services.AddScoped<IDeviceService, DeviceService>();
 
         return services;
     }

@@ -15,7 +15,7 @@ public class BuildingRepository : BaseRepository<Building>, IBuildingRepository
         _context = context;
     }
 
-    public override async Task<Building> GetById(int id)
+    public override async Task<Building?> GetById(int id)
     {
         return await _context.Buildings
             .Include(b => b.Unit)

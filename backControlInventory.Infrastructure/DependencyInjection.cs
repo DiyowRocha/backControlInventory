@@ -3,6 +3,7 @@ using backControlInventory.Infrastructure.Models;
 using backControlInventory.Infrastructure.Repository.BaseRepository;
 using backControlInventory.Infrastructure.Repository.Buildings;
 using backControlInventory.Infrastructure.Repository.Departments;
+using backControlInventory.Infrastructure.Repository.Devices;
 using backControlInventory.Infrastructure.Repository.Manufacturers;
 using backControlInventory.Infrastructure.Repository.Units;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ public static class DependencyInjection
         services.AddScoped<IModelRepository, ModelRepository>();
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         services.AddScoped<IBuildingRepository, BuildingRepository>();
+        services.AddScoped<IDeviceRepository, DeviceRepository>();
 
         return services;
     }
